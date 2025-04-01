@@ -92,7 +92,7 @@ const Mobile = () => {
         <input
           type="range"
           min="10"
-          max="100"
+          max="200"
           value={fontSize}
           onChange={(e) => setFontSize(e.target.value)}
         />

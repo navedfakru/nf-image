@@ -6,8 +6,8 @@ import Canva from './components/Canva'
 function App() {
   return (
     <>
-      {/* <Mobile /> */}
-      <Canva />
+      <Mobile />
+      {/* <Canva /> */}
     </>
   )
 }
