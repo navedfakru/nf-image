@@ -11,7 +11,15 @@ export const FREE_FONTS = [
 ];
 
 export const ALL_FONTS = [
-  ...FREE_FONTS,
+  'Inter',
+  'Playfair Display',
+  'Dancing Script',
+  'Oswald',
+  'Merriweather',
+  'Pacifico',
+  "ABeeZee", "Abel", "Abril Fatface", "Acme", "Alata", "Albert Sans", "Alegreya", "Alegreya Sans",
+  "Alegreya Sans SC", "Alfa Slab One", "Alice", "Almarai", "Amatic SC", "Amiri", "Antic Slab", "Anton",
+  "Architects Daughter", "Archivo", "Archivo Black", "Archivo Narrow", "Arimo", "Arsenal", "Arvo", "Asap",
   "Asap Condensed", "Assistant", "Barlow", "Barlow Condensed", "Barlow Semi Condensed", "Be Vietnam Pro",
   "Bebas Neue", "Bitter", "Black Ops One", "Bodoni Moda", "Bree Serif", "Bungee", "Cabin", "Cairo", "Cantarell",
   "Cardo", "Catamaran", "Caveat", "Chakra Petch", "Changa", "Chivo", "Cinzel", "Comfortaa", "Commissioner",
@@ -45,3 +53,24 @@ export const ALL_FONTS = [
   "Varela Round", "Vollkorn", "Work Sans", "Yanone Kaffeesatz", "Yantramanav",
   "Yellowtail", "Yeseva One", "Zen Kaku Gothic New", "Zeyada", "Zilla Slab"
 ]
+
+export const ATTRACTIVE_FONTS = [
+  // Serif & Elegant
+  "Playfair Display", "Abril Fatface", "Bodoni Moda", "Cormorant Garamond",
+  "EB Garamond", "Marcellus", "Prata", "Vollkorn", "Yeseva One",
+
+  // Bold & Eye-catching
+  "Anton", "Archivo Black", "Bebas Neue", "Bungee", "Lilita One",
+  "Passion One", "Patua One", "Righteous", "Russo One", "Titan One",
+
+  // Handwritten & Decorative
+  "Dancing Script", "Pacifico", "Amatic SC", "Cookie", "Courgette",
+  "Great Vibes", "Indie Flower", "Kaushan Script", "Lobster", "Sacramento",
+  "Satisfy", "Tangerine", "Yellowtail", "Zeyada",
+
+  // Modern & Stylish Sans-serif
+  "Comfortaa", "DM Serif Display", "Exo", "Inter Tight", "Jost",
+  "League Spartan", "Lexend", "Montserrat Alternates", "Nunito Sans",
+  "Orbitron", "Poppins", "Quicksand", "Rajdhani", "Raleway",
+  "Space Grotesk", "Urbanist"
+];

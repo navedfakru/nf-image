@@ -1,18 +1,24 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Stage, Layer, Text, Image as KonvaImage } from 'react-konva';
-import { FREE_FONTS } from './../constant/fonts'
+import { FREE_FONTS, ATTRACTIVE_FONTS } from './../constant/fonts'
 
 const Mobile = () => {
   const [bgImage, setBgImage] = useState(null);
   const [objectImg, setObjectImg] = useState(null);
   const [canvasSize, setCanvasSize] = useState(null);
   const [text, setText] = useState('Hello World');
-  const [fontFamily, setFontFamily] = useState('');
+  const [fontFamily, setFontFamily] = useState('Inter');
   const [scale, setScale] = useState(1);
-  const [fontSize, setFontSize] = useState(30);
-  const [fill, setFill] = useState("red")
+  const [fontSize, setFontSize] = useState(24);
+  const [fill, setFill] = useState("#000000");
+  const [rotation, setRotation] = useState(0);
+  const [center, setCenter] = useState({
+    x: 0,
+    y: 0
+  })
   const stageRef = useRef();
   const textRef = useRef();
+  const centerImg = useRef();
 
   // ✅ Image resize kare aur aspect ratio maintain kare
   const getScaledImageSize = (img, maxWidth, maxHeight) => {
@@ -58,6 +64,11 @@ const Mobile = () => {
     link.click();
   };
 
+  const handleCenter = () => {
+    setCenter({ x: 0, y: 0 })
+    // console.log(center)
+  }
+
   // ✅ Window Resize hone par Canvas ko Adjust kare
   useEffect(() => {
     if (bgImage && canvasSize) {
@@ -73,43 +84,27 @@ const Mobile = () => {
   useEffect(() => {
     if (textRef.current) {
       textRef.current.getLayer().batchDraw(); // Force re-render
+      // Center the text by setting its offset
+      textRef.current.offsetX(textRef.current.width() / 2);
+      textRef.current.offsetY(textRef.current.height() / 2);
     }
-  }, [fontSize]);
+  }, [fontSize, rotation, text]);
+
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
+    <div className="flex flex-col items-center gap-4 p-4 bg-amber-200 min-h-screen mb-20">
       {/* ✅ Image Upload Inputs */}
       <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'bg')} />
       <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'obj')} />
-
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="border p-2"
-      />
-      <label>Text Size:
-        <input
-          type="range"
-          min="10"
-          max="200"
-          value={fontSize}
-          onChange={(e) => setFontSize(e.target.value)}
-        />
-      </label>
-      <label>Text Color:
-        <input type="color" name="" value={fill} onChange={(e) => setFill(e.target.value)} id="" />
-      </label>
-      <label>Font Family:
-        <select
-          value={fontFamily}
-          onChange={(e) => setFontFamily(e.target.value)}
-        >
-          {
-            FREE_FONTS.map((value) => <option value={value}>{value}</option>)
-          }
-        </select>
-      </label>
+      {/* ✅ Download Button */}
+      <div className='w-full flex justify-between'>
+        <button onClick={handleDownload} className="bg-blue-500 text-white px-4 py-2 rounded">
+          Download
+        </button>
+        <button onClick={handleCenter} className="bg-black/45 text-white px-4 py-2 rounded">
+          Center
+        </button>
+      </div>
 
       {/* ✅ Canvas Area - Jab Tak Image Upload Nahi Hoti, Tab Tak Hide */}
       {canvasSize && (
@@ -122,23 +117,26 @@ const Mobile = () => {
               {/* ✅ Draggable Text */}
               <Text
                 ref={textRef}
-                x={canvasSize.width / 4}
-                y={50}
+                x={canvasSize.width / 2}
+                y={canvasSize.height / 2}
                 text={text}
                 fontSize={Number(fontSize)}
                 fontFamily={fontFamily}
                 fill={fill}
                 fontStyle="bold"
-                draggable
+                draggable={true}
+                rotation={Number(rotation)}
               />
-
               {/* ✅ Draggable Object Image */}
               {objectImg && (
                 <KonvaImage
+                  key={`${center.x}-${center.y}`}
+                  ref={centerImg}
                   image={objectImg}
                   {...getScaledImageSize(objectImg, canvasSize.width, canvasSize.height)}
-                  x={canvasSize.width / 2 - 75}
-                  y={canvasSize.height / 2 - 75}
+                  x={center.x}
+                  y={center.y}
+                  onDragEnd={(e) => setCenter({ x: e.target.x(), y: e.target.y() })}
                   draggable
                 />
               )}
@@ -147,10 +145,46 @@ const Mobile = () => {
         </div>
       )}
 
-      {/* ✅ Download Button */}
-      <button onClick={handleDownload} className="bg-blue-500 text-white px-4 py-2 rounded">
-        Download Image
-      </button>
+      <div className='h-20 bg-gray-500 flex flex-col items-center bottom-0 overflow-auto w-full fixed p-4'>
+
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="border p-2"
+        />
+        <label>Text Size:
+          <input
+            type="range"
+            min="10"
+            max="200"
+            value={fontSize}
+            onChange={(e) => setFontSize(e.target.value)}
+          />
+        </label>
+        <label>Text Rotate:
+          <input
+            type="range"
+            min="-180"
+            max="180"
+            value={rotation}
+            onChange={(e) => setRotation(e.target.value)}
+          />
+        </label>
+        <label>Text Color:
+          <input type="color" name="" value={fill} onChange={(e) => setFill(e.target.value)} id="" />
+        </label>
+        <label>Font Family:
+          <select
+            value={fontFamily}
+            onChange={(e) => setFontFamily(e.target.value)}
+          >
+            {
+              ATTRACTIVE_FONTS.map((font) => <option key={font} value={font} style={{ fontFamily: font }}>{font}</option>)
+            }
+          </select>
+        </label>
+      </div>
     </div>
   );
 };
