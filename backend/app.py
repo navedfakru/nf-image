@@ -7,12 +7,12 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
-# .env लोड करो
 load_dotenv()
 
 app = Flask(__name__)
 
-CORS(app, origins=["https://nf-image.netlify.app", "http://localhost:5173"])
+# CORS Issue Fix
+CORS(app, supports_credentials=True)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -21,27 +21,22 @@ def home():
 @app.route('/remove_background', methods=['POST'])
 def remove_background():
     try:
-        
         if 'image' not in request.files:
             return jsonify({'error': 'No file provided'}), 400
         
         image_file = request.files['image']
         input_image = Image.open(image_file).convert("RGBA")
 
-        
         max_size = 1024
         if max(input_image.size) > max_size:
             input_image.thumbnail((max_size, max_size))
 
-        
         output_image = remove(input_image)
 
-        
         img_io = io.BytesIO()
         output_image.save(img_io, format="PNG")
         img_io.seek(0)
 
-        
         return send_file(img_io, mimetype="image/png")
 
     except Exception as e:
@@ -49,4 +44,5 @@ def remove_background():
         return jsonify({'error': f"An error occurred: {str(e)}\n{error_message}"}), 500
 
 if __name__ == '__main__':
-    app.run()
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=10000)
