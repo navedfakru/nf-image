@@ -12,8 +12,12 @@ load_dotenv()
 
 app = Flask(__name__)
 
-ENVIRONMENT = os.getenv("ENVIRONMENT", "development") 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "production") 
 FRONTEND_URL = os.getenv("FRONTEND_URL", "https://nf-image.netlify.app")
+
+# ENVIRONMENT = os.getenv("ENVIRONMENT", "development") 
+# FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+# print(ENVIRONMENT)
 
 
 if ENVIRONMENT == "production":
