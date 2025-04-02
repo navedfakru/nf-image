@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Stage, Layer, Text, Image as KonvaImage } from 'react-konva';
-import { FREE_FONTS, ATTRACTIVE_FONTS } from './../constant/fonts'
+import { FREE_FONTS, ATTRACTIVE_FONTS } from '../constant/fonts'
 
 const Mobile = () => {
   const [bgImage, setBgImage] = useState(null);
