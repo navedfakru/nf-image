@@ -17,7 +17,8 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "https://nf-image.netlify.app")
 
 # ENVIRONMENT = os.getenv("ENVIRONMENT", "development") 
 # FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
-# print(ENVIRONMENT)
+
+print(ENVIRONMENT)
 
 
 if ENVIRONMENT == "production":
@@ -25,11 +26,11 @@ if ENVIRONMENT == "production":
 else:
     CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
-@app.route('/api/', methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
     return jsonify({"message": "Backend is running!"})
 
-@app.route('/api/remove_background', methods=['POST'])
+@app.route('/remove_background', methods=['POST'])
 def remove_background():
     try:
         
@@ -60,4 +61,4 @@ def remove_background():
         return jsonify({'error': f"An error occurred: {str(e)}\n{error_message}"}), 500
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=(ENVIRONMENT != "production"))
+    app.run()

@@ -12,6 +12,6 @@ services:
     sync: false
   region: singapore
   buildCommand: pip install -r requirements.txt
-  startCommand: gunicorn api.app:app --bind 0.0.0.0:$PORT
+  startCommand: gunicorn app:app
   rootDir: backend
 version: "1"
