@@ -8,7 +8,7 @@ const RemoveBg = () => {
 
     const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://127.0.0.1:5000'
-        : "https://marvelous-swan-c2066f.netlify.app";
+        : "https://nf-image.onrender.com";
     // const BACKEND_URL =  import.meta.env.VITE_BACKEND_URL;
 
     const handleFileChange = (event) => {
@@ -67,7 +67,7 @@ const RemoveBg = () => {
     };
 
     return (
-        <div className="bg-orange-200 w-full h-screen flex flex-col items-center justify-center text-white">
+        <div className="bg-green-500 w-full h-screen flex flex-col items-center justify-center text-white">
             <h1 className="text-white text-2xl font-bold">Image Cutout</h1>
             <input type="file" accept="image/*" onChange={handleFileChange} className="my-4" />
             <button onClick={removeBg} className="bg-orange-500 px-4 py-2 rounded">Remove Background</button>
