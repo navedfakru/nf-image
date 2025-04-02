@@ -39,8 +39,15 @@ def remove_background():
         output_image.save(img_io, format="PNG")
         img_io.seek(0)
 
-        return send_file(img_io, mimetype="image/png")
+        # Prepare the response and add CORS headers specifically for this route
+        response = send_file(img_io, mimetype="image/png")
 
+        # Adding CORS headers manually (Optional if using global CORS setup)
+        response.headers['Access-Control-Allow-Origin'] = 'https://nf-image.netlify.app'
+        response.headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+
+        return response
     except Exception as e:
         error_message = traceback.format_exc()
         return jsonify({'error': f"An error occurred: {str(e)}\n{error_message}"}), 500
