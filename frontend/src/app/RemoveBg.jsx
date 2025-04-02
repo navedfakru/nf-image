@@ -6,10 +6,10 @@ const RemoveBg = () => {
     const [loading, setLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
 
-    // const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    //     ? 'http://127.0.0.1:5000'
-    //     : import.meta.env.VITE_BACKEND_URL;
-    const BACKEND_URL =  import.meta.env.VITE_BACKEND_URL;
+    const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://127.0.0.1:5000'
+        : import.meta.env.VITE_BACKEND_URL;
+    // const BACKEND_URL =  import.meta.env.VITE_BACKEND_URL;
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -31,6 +31,8 @@ const RemoveBg = () => {
         setError(null);
         const formData = new FormData();
         formData.append("image", selectedFile);
+
+        console.log("BACKEND_URL:", BACKEND_URL);
 
         try {
             const response = await fetch(`${BACKEND_URL}/remove_background`, {
