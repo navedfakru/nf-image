@@ -7,7 +7,7 @@ const RemoveBg = () => {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://127.0.0.1:5000'
+        ? 'http://127.0.0.1:10000'
         : "https://nf-image.onrender.com";
     // const BACKEND_URL =  import.meta.env.VITE_BACKEND_URL;
 
