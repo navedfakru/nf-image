@@ -12,19 +12,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-ENVIRONMENT = os.getenv("ENVIRONMENT", "production") 
-FRONTEND_URL = os.getenv("FRONTEND_URL", "https://nf-image.netlify.app")
-
-# ENVIRONMENT = os.getenv("ENVIRONMENT", "development") 
-# FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
-
-print(ENVIRONMENT)
-
-
-if ENVIRONMENT == "production":
-    CORS(app, resources={r"/*": {"origins": FRONTEND_URL}})
-else:
-    CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app, origins=["https://nf-image.netlify.app", "http://localhost:5173"])
 
 @app.route('/', methods=['GET'])
 def home():
