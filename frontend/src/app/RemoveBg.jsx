@@ -1,45 +1,62 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const RemoveBg = () => {
     const [base64Image, setBase64Image] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
 
-    
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://nf-image.vercel.app/";
+    const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://127.0.0.1:5000'
+        : import.meta.env.VITE_BACKEND_URL;
 
-    const handleImageUpload = async (event) => {
+    const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (!file) {
-            alert('Please select an image.');
+            setError("Please select an image.");
             return;
         }
-        
+        setSelectedFile(file);
+        setError(null);
+    };
+
+    const removeBg = async () => {
+        if (!selectedFile) {
+            setError("Please select an image first.");
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
         const formData = new FormData();
-        formData.append('image', file);
-        
+        formData.append("image", selectedFile);
+
         try {
             const response = await fetch(`${BACKEND_URL}/remove_background`, {
-                method: 'POST',
+                method: "POST",
                 body: formData
             });
-            
-            const data = await response.json();
-            if (data.image) {
-                setBase64Image(data.image);
-                setError(null);
-            } else if (data.error) {
-                setError(data.error);
-            }
+
+            if (!response.ok) throw new Error("Failed to process image");
+
+            const blob = await response.blob();
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                setBase64Image(reader.result.split(",")[1]);
+                setLoading(false);
+            };
         } catch (err) {
             setError(err.message);
+            setLoading(false);
         }
     };
 
     const handleDownload = () => {
         if (base64Image) {
-            const link = document.createElement('a');
-            link.href = 'data:image/png;base64,' + base64Image;
-            link.download = 'cutout_image.png';
+            const link = document.createElement("a");
+            link.href = "data:image/png;base64," + base64Image;
+            link.download = "cutout_image.png";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -47,19 +64,23 @@ const RemoveBg = () => {
     };
 
     return (
-        <div className='bg-gray-700 w-full h-screen'>
-            <h1 className='text-green-500'>Image Cutout</h1>
-            <input type="file" accept="image/*" onChange={handleImageUpload} />
-            <button onClick={handleImageUpload}>Remove Background</button>
+        <div className="bg-gray-700 w-full h-screen flex flex-col items-center justify-center text-white">
+            <h1 className="text-green-500 text-2xl font-bold">Image Cutout</h1>
+            <input type="file" accept="image/*" onChange={handleFileChange} className="my-4" />
+            <button onClick={removeBg} className="bg-red-500 px-4 py-2 rounded">Remove Background</button>
+
+            {loading && <p className="text-yellow-400">Processing...</p>}
+
             {base64Image && (
-                <>
-                    <button onClick={handleDownload}>Download Image</button>
-                    <div style={{ height: '200px' }}>
-                        <img src={`data:image/png;base64,${base64Image}`} alt="Processed" style={{ height: '200px' }} />
+                <div className="mt-4">
+                    <button onClick={handleDownload} className="bg-blue-500 px-4 py-2 rounded">Download Image</button>
+                    <div className="mt-4">
+                        <img src={`data:image/png;base64,${base64Image}`} alt="Processed" className="w-48 h-auto" />
                     </div>
-                </>
+                </div>
             )}
-            {error && <p>Error: {error}</p>}
+
+            {error && <p className="text-red-500">{error}</p>}
         </div>
     );
 };
