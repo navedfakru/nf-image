@@ -13,9 +13,9 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# FRONTEND_URL सेट करो (Local या Production)
+# FRONTEND_URL सेट करो
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
-CORS(app, origins=[FRONTEND_URL])
+CORS(app, resources={r"/*": {"origins": FRONTEND_URL}})
 
 @app.route('/', methods=['GET'])
 def home():
@@ -24,18 +24,23 @@ def home():
 @app.route('/remove_background', methods=['POST'])
 def remove_background():
     try:
+        # इमेज पढ़ो
         image_data = request.files['image'].read()
-        input_image = Image.open(io.BytesIO(image_data))
+        input_image = Image.open(io.BytesIO(image_data)).convert("RGBA")
 
-        # इमेज का आकार बदलें (optional)
+        # इमेज का आकार बदलें (Optional)
         max_size = 1024
         if max(input_image.size) > max_size:
             input_image.thumbnail((max_size, max_size))
 
+        # बैकग्राउंड हटाओ
         output_image = remove(input_image)
+
+        # इमेज को Bytes में कन्वर्ट करो
         buffered = io.BytesIO()
         output_image.save(buffered, format="PNG")
         img_str = base64.b64encode(buffered.getvalue()).decode()
+
         return jsonify({'image': img_str})
 
     except Exception as e:
@@ -43,4 +48,4 @@ def remove_background():
         return jsonify({'error': f"An error occurred: {str(e)}\n{error_message}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
