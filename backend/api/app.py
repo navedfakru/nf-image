@@ -25,11 +25,11 @@ if ENVIRONMENT == "production":
 else:
     CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
-@app.route('/', methods=['GET'])
+@app.route('/api/', methods=['GET'])
 def home():
     return jsonify({"message": "Backend is running!"})
 
-@app.route('/remove_background', methods=['POST'])
+@app.route('/api/remove_background', methods=['POST'])
 def remove_background():
     try:
         

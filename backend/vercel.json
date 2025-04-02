@@ -2,13 +2,16 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.py",
+      "src": "api/app.py",
       "use": "@vercel/python"
     }
   ],
+  "routes": [
+    { "src": "/api/remove_background", "dest": "/api/app.py" }
+  ],
   "headers": [
     {
-      "source": "/remove_background",
+      "source": "/api/remove_background",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
