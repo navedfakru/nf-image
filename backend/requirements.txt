@@ -1,0 +1,6 @@
+Flask
+rembg
+Pillow
+flask-cors
+gunicorn
+python-dotenv
