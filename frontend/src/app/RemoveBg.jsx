@@ -32,7 +32,7 @@ const RemoveBg = () => {
         const formData = new FormData();
         formData.append("image", selectedFile);
 
-        console.log("BACKEND_URL:", BACKEND_URL);
+        console.log("BACKEND_URL updated:", BACKEND_URL);
 
         try {
             const response = await fetch(`${BACKEND_URL}/remove_background`, {
@@ -67,7 +67,7 @@ const RemoveBg = () => {
     };
 
     return (
-        <div className="bg-gray-700 w-full h-screen flex flex-col items-center justify-center text-white">
+        <div className="bg-orange-200 w-full h-screen flex flex-col items-center justify-center text-white">
             <h1 className="text-white text-2xl font-bold">Image Cutout</h1>
             <input type="file" accept="image/*" onChange={handleFileChange} className="my-4" />
             <button onClick={removeBg} className="bg-orange-500 px-4 py-2 rounded">Remove Background</button>
