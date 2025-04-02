@@ -6,9 +6,10 @@ const RemoveBg = () => {
     const [loading, setLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
 
-    const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://127.0.0.1:5000'
-        : import.meta.env.VITE_BACKEND_URL;
+    // const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    //     ? 'http://127.0.0.1:5000'
+    //     : import.meta.env.VITE_BACKEND_URL;
+    const BACKEND_URL =  import.meta.env.VITE_BACKEND_URL;
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -67,7 +68,7 @@ const RemoveBg = () => {
         <div className="bg-gray-700 w-full h-screen flex flex-col items-center justify-center text-white">
             <h1 className="text-green-500 text-2xl font-bold">Image Cutout</h1>
             <input type="file" accept="image/*" onChange={handleFileChange} className="my-4" />
-            <button onClick={removeBg} className="bg-red-500 px-4 py-2 rounded">Remove Background</button>
+            <button onClick={removeBg} className="bg-orange-500 px-4 py-2 rounded">Remove Background</button>
 
             {loading && <p className="text-yellow-400">Processing...</p>}
 
