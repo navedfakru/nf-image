@@ -47,8 +47,8 @@ const RemoveBg = () => {
     };
 
     return (
-        <div>
-            <h1>Image Cutout</h1>
+        <div className='bg-gray-700 w-full h-screen'>
+            <h1 className='text-green-500'>Image Cutout</h1>
             <input type="file" accept="image/*" onChange={handleImageUpload} />
             <button onClick={handleImageUpload}>Remove Background</button>
             {base64Image && (
