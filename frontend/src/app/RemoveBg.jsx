@@ -5,7 +5,7 @@ const RemoveBg = () => {
     const [error, setError] = useState(null);
 
     
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://127.0.0.1:5000";
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://nf-image.vercel.app/";
 
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
