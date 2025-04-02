@@ -1,0 +1,17 @@
+# Exported from Render on 2025-04-02T18:01:22Z
+services:
+- type: web
+  name: nf-image
+  runtime: python
+  repo: https://github.com/navedfakru/nf-image
+  plan: free
+  envVars:
+  - key: FRONTEND_URL
+    sync: false
+  - key: ENVIRONMENT
+    sync: false
+  region: singapore
+  buildCommand: pip install -r requirements.txt
+  startCommand: gunicorn api.app:app --bind 0.0.0.0:$PORT
+  rootDir: backend
+version: "1"
