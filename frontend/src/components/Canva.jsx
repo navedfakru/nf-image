@@ -1,31 +1,30 @@
 import { useEffect, useRef, useState } from "react"
-import { removeBackground } from "@imgly/background-removal"
 
 
 function Canva() {
   const [img, setImag] = useState()
   const [removeBg, setRemoveBg] = useState()
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      console.log(imageUrl)
-      setImag(imageUrl);
-      await setupImage(imageUrl);
-    }
-  };
+  // const handleFileChange = async (event) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     console.log(imageUrl)
+  //     setImag(imageUrl);
+  //     await setupImage(imageUrl);
+  //   }
+  // };
 
-  const setupImage = async (imageUrl) => {
-    try {
-      const imageBlob = await removeBackground(imageUrl);
-      const url = URL.createObjectURL(imageBlob);
-      setRemoveBg(url);
-      console.log(url)
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const setupImage = async (imageUrl) => {
+  //   try {
+  //     const imageBlob = await removeBackground(imageUrl);
+  //     const url = URL.createObjectURL(imageBlob);
+  //     setRemoveBg(url);
+  //     console.log(url)
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handle = () => {
     // const canvas = canvasRef.current;
