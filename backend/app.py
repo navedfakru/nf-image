@@ -17,6 +17,9 @@ CORS(app, resources={r"/*": {"origins": ["https://nf-image.netlify.app", "http:/
 @app.route('/', methods=['GET'])
 def home():
     return jsonify({"message": "Backend is running!"})
+@app.route('/naved', methods=['GET'])
+def naved():
+    return jsonify({"message": "naved running!"})
 
 @app.route('/remove_background', methods=['POST'])
 def remove_background():
