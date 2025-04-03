@@ -1,6 +1,0 @@
-# Ignore environment variable files
-.env
-.env.local
-.env.production
-.env.development
-venv
