@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss(),],
   server: {
     proxy: {
-      "/remove_background": "http://127.0.0.1:5000",
+      "/remove_background": ["http://127.0.0.1:5000", "https://nf-image.onrender.com"],
     },
   },
 })

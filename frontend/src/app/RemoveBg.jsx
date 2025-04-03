@@ -7,9 +7,8 @@ const RemoveBg = () => {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://127.0.0.1:10000'
+        ? 'http://127.0.0.1:5000'
         : "https://nf-image.onrender.com";
-    // const BACKEND_URL =  import.meta.env.VITE_BACKEND_URL;
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -38,10 +37,6 @@ const RemoveBg = () => {
             const response = await fetch(`${BACKEND_URL}/remove_background`, {
                 method: "POST",
                 body: formData,
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: "include"
             });
 
             if (!response.ok) throw new Error("Failed to process image");
