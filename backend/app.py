@@ -11,7 +11,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["https://nf-image.netlify.app", "http://localhost:5173"])
+CORS(app, resources={r"/*": {"origins": ["https://nf-image.netlify.app", "http://localhost:3000"]}})
+
 
 @app.route('/', methods=['GET'])
 def home():
