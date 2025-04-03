@@ -37,7 +37,11 @@ const RemoveBg = () => {
         try {
             const response = await fetch(`${BACKEND_URL}/remove_background`, {
                 method: "POST",
-                body: formData
+                body: formData,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include"
             });
 
             if (!response.ok) throw new Error("Failed to process image");
@@ -67,7 +71,7 @@ const RemoveBg = () => {
     };
 
     return (
-        <div className="bg-green-500 w-full h-screen flex flex-col items-center justify-center text-white">
+        <div className="bg-yellow-500 w-full h-screen flex flex-col items-center justify-center text-white">
             <h1 className="text-white text-2xl font-bold">Image Cutout</h1>
             <input type="file" accept="image/*" onChange={handleFileChange} className="my-4" />
             <button onClick={removeBg} className="bg-orange-500 px-4 py-2 rounded">Remove Background</button>
