@@ -7,9 +7,9 @@ import RemoveBg from './app/RemoveBg'
 function App() {
   return (
     <>
-      {/* <Mobile /> */}
+      <Mobile />
       {/* <Canva /> */}
-      <RemoveBg />
+      {/* <RemoveBg /> */}
     </>
   )
 }
