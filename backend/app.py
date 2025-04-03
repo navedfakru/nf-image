@@ -23,7 +23,7 @@ app.add_middleware(
 
 @app.get("/")
 def home():
-    return {"message": "Backend is running!"}
+    return {"message": "Backend is fastapi running!"}
 
 @app.get("/naved")
 def naved():
