@@ -9,5 +9,6 @@ export default defineConfig({
     proxy: {
       "/remove_background": ["http://127.0.0.1:5000", "https://nf-image.onrender.com"],
     },
+    host: "0.0.0.0"
   },
 })

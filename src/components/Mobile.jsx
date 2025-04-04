@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Stage, Layer, Text, Image as KonvaImage } from 'react-konva';
 import { FREE_FONTS, ATTRACTIVE_FONTS } from '../constant/fonts'
+import FontDropdown from './ui/FontDropdown';
+import CustomSlider from './ui/CustomSlider';
 
 const Mobile = () => {
   const [bgImage, setBgImage] = useState(null);
@@ -92,7 +94,7 @@ const Mobile = () => {
 
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4 bg-amber-200 min-h-screen mb-20">
+    <div className="flex flex-col items-center gap-4 p-4 bg-green-200 h-screen">
       {/* ✅ Image Upload Inputs */}
       <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'bg')} />
       <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'obj')} />
@@ -109,7 +111,7 @@ const Mobile = () => {
       {/* ✅ Canvas Area - Jab Tak Image Upload Nahi Hoti, Tab Tak Hide */}
       {canvasSize && (
         <div className="border shadow-lg bg-white flex justify-center items-center" style={{ overflow: 'hidden', width: '80vw', height: '80vh' }}>
-          <Stage width={canvasSize.width} height={canvasSize.height} ref={stageRef} scaleX={scale} scaleY={scale}>
+          <Stage width={canvasSize.width} height={canvasSize.height} ref={stageRef} scaleX={scale} scaleY={scale} >
             <Layer>
               {/* ✅ Background Image Fit karega Canvas ke andar */}
               <KonvaImage image={bgImage} width={canvasSize.width} height={canvasSize.height} />
@@ -172,12 +174,13 @@ const Mobile = () => {
           />
         </label>
         <label>Text Color:
-          <input type="color" name="" value={fill} onChange={(e) => setFill(e.target.value)} id="" />
+          <input type="color" name="" value={fill} onChange={(e) => setFill(e.target.value)} id=""  />
         </label>
         <label>Font Family:
           <select
             value={fontFamily}
             onChange={(e) => setFontFamily(e.target.value)}
+            className='bg-green-300'
           >
             {
               ATTRACTIVE_FONTS.map((font) => <option key={font} value={font} style={{ fontFamily: font }}>{font}</option>)
