@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ATTRACTIVE_FONTS } from '../../constant/fonts';
+import { ATTRACTIVE_FONTS, ALL_FONTS } from '../../constant/fonts';
+import FontDropdown from './FontDropdown';
 
 const CustomCanvas = () => {
   const canvasRef = useRef(null);
@@ -239,7 +240,7 @@ const CustomCanvas = () => {
         </label> */}
 
 
-        <label className="flex flex-col text-xs">
+        {/* <label className="flex flex-col text-xs">
           Font Family
           <select
             value={textSet.fontFamily}
@@ -252,7 +253,13 @@ const CustomCanvas = () => {
               </option>
             ))}
           </select>
-        </label>
+        </label> */}
+
+        <FontDropdown
+          value={textSet.fontFamily}
+          onChange={(font) => setTextSet({ ...textSet, fontFamily: font })}
+        />
+
 
         {/* Text Input */}
         <label className="flex flex-col text-xs">
