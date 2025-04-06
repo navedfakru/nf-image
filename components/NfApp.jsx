@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import AdBanner from './Adbanner'
+import AdBanner from './AdBanner'
 
 function NfApp() {
 
