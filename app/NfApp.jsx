@@ -1,41 +1,14 @@
 import React, {useEffect} from 'react'
+import AdSense from '../src/ads/Adsense'
 
 function NfApp() {
-
-  useEffect(() => {
-    // ✅ Load AdSense Script
-    const script = document.createElement('script');
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5765353401158683';
-    script.async = true;
-    script.crossOrigin = 'anonymous';
-    document.body.appendChild(script);
-
-    // ✅ Push Ad
-    const timeout = setTimeout(() => {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
-        console.error('AdSense error:', e);
-      }
-    }, 1000);
-
-    return () => {
-      document.body.removeChild(script);
-      clearTimeout(timeout);
-    };
-  }, []);
 
   return (
     <div className='w-screen h-screen grid grid-rows-12 bg-amber-500 md:hidden'>
       <div className='bg-blue-500 row-span-1'>
         {/* 🔝 AdSense Ads Container */}
         <div className="bg-white flex items-center justify-center px-2">
-          <ins className="adsbygoogle"
-            style={{ display: "block", width: "100%", height: "100%" }}
-            data-ad-client="ca-pub-5765353401158683"  // <- 🔁 Replace with your AdSense ID
-            data-ad-slot="2394571922"                 // <- 🔁 Replace with your Ad slot ID
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
+          <AdSense />
         </div>
       </div>
       <div className='bg-green-500 row-span-8'></div>
