@@ -2,26 +2,27 @@ import React, { useEffect } from 'react';
 
 function AdSense() {
   useEffect(() => {
-    // Load AdSense Script Dynamically
-    const script = document.createElement('script');
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5765353401158683';
-    script.async = true;
-    script.crossOrigin = 'anonymous';
-    document.body.appendChild(script);
 
-    // Push ads to window.adsbygoogle
-    const timeout = setTimeout(() => {
+    const scriptElement = document.querySelector(
+      'script[src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5765353401158683"]'
+    );
+
+    const handleScriptLoad = () => {
       try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
-        console.error('AdSense Error:', e);
+        if(window.adsbygoogle){
+          console.log("Pusingin Ads by Naved Ali google ads");
+          adsbygoogle.push({});
+        }else {
+          scriptElement!.addEventListener("load", handleScriptLoad);
+          console.log("waiting until adsense lib is loaded by Naved Ali")
+        }
+      } catch (err) {
+        console.log("error in adsense by Naved ali:-", err)
       }
-    }, 1000);
+    }
 
-    return () => {
-      document.body.removeChild(script);
-      clearTimeout(timeout);
-    };
+    handleScriptLoad()
+    
   }, []);
 
   return (
