@@ -13,7 +13,7 @@ const AdBanner = ({
         {}
       );
     } catch (error) {
-      console.log(error.message);
+      console.log("Naved AdBanner",error.message);
     }
   }, []);
 
