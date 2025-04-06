@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import AdSense from '../src/ads/Adsense'
 
 function NfApp() {
@@ -7,9 +7,7 @@ function NfApp() {
     <div className='w-screen h-screen grid grid-rows-12 bg-amber-500 md:hidden'>
       <div className='bg-blue-500 row-span-1'>
         {/* 🔝 AdSense Ads Container */}
-        <div className="bg-white flex items-center justify-center px-2">
-          <AdSense />
-        </div>
+        <AdSense />
       </div>
       <div className='bg-green-500 row-span-8'></div>
       <div className='bg-red-500 row-span-3 text-xl p-2'>
