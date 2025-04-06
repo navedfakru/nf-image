@@ -2,27 +2,35 @@ import React, { useEffect } from 'react';
 
 function AdSense() {
   useEffect(() => {
+    const scriptElement = document.createElement('script');
+    scriptElement.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5765353401158683';
+    scriptElement.async = true;
+    scriptElement.crossOrigin = 'anonymous';
 
-    const scriptElement = document.querySelector(
-      'script[src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5765353401158683"]'
-    );
-
+    // Event listener for when the script is loaded
     const handleScriptLoad = () => {
       try {
-        if(window.adsbygoogle){
-          console.log("Pusingin Ads by Naved Ali google ads");
-          adsbygoogle.push({});
-        }else {
-          scriptElement!.addEventListener("load", handleScriptLoad);
-          console.log("waiting until adsense lib is loaded by Naved Ali")
+        if (window.adsbygoogle) {
+          console.log("Pushing ads by Naved Ali Google Ads");
+          window.adsbygoogle.push({});
+        } else {
+          console.log("adsbygoogle library not found, retrying...");
         }
       } catch (err) {
-        console.log("error in adsense by Naved ali:-", err)
+        console.log("Error in AdSense by Naved Ali:", err);
       }
-    }
+    };
 
-    handleScriptLoad()
-    
+    // Append script element to body
+    document.body.appendChild(scriptElement);
+
+    // Add load event listener
+    scriptElement.addEventListener('load', handleScriptLoad);
+
+    // Cleanup when component unmounts
+    return () => {
+      document.body.removeChild(scriptElement);
+    };
   }, []);
 
   return (
