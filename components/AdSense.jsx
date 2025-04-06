@@ -7,9 +7,11 @@ const AdSense = ({ pId }) => {
         async
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${pId}`}
         crossOrigin='anonymous'
-        strategy='afterInteractive'
-    />
-  )
-}
+        />
+      )
+    }
+    
+    export default AdSense
 
-export default AdSense
+
+// strategy='afterInteractive'
