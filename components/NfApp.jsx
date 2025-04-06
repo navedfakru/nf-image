@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
-import AdSense from '../src/ads/Adsense'
+"use client"
+
+import React from 'react'
+import AdBanner from './Adbanner'
 
 function NfApp() {
 
   return (
-    <div className='w-screen h-screen grid grid-rows-12 bg-amber-500 md:hidden'>
-      <div className='bg-blue-500 row-span-1'>
-        {/* 🔝 AdSense Ads Container */}
-        <AdSense />
-      </div>
+    <>
+    <AdBanner dataAdFormat="auto" dataFullWidthResponsive={true} dataAdSlot="2394571922" />
+    <div className='w-screen h-[85vh] grid grid-rows-12 bg-amber-500 md:hidden'>
       <div className='bg-green-500 row-span-8'></div>
-      <div className='bg-red-500 row-span-3 text-xl p-2'>
+      <div className='bg-red-500 row-span-4 text-xl p-2'>
         <div className='bg-white text-black grid grid-rows-3 w-full h-full'>
           <div className='bg-orange-500 row-span-2'>
             <input type="range" name="" min={10} max={100} id="" />
@@ -25,6 +25,8 @@ function NfApp() {
         </div>
       </div>
     </div>
+    {/* <AdBanner dataAdFormat="autorelaxed" dataFullWidthResponsive={true} dataAdSlot="8376755834" /> */}
+    </>
   )
 }
 
