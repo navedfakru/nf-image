@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import AdBanner from './Adbanner.jsx'
+import AdBanner from './Adbanner'
 
 function NfApp() {
 
@@ -25,6 +25,7 @@ function NfApp() {
         </div>
       </div>
     </div>
+    {/* <AdBanner dataAdFormat="autorelaxed" dataFullWidthResponsive={true} dataAdSlot="8376755834" /> */}
     </>
   )
 }
